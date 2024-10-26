@@ -20,11 +20,6 @@ while True:
         break
 
     frame = detector.findHands(frame)
-    lmList = detector.findPosition(frame , False)
-
-    # Debug print to check landmark positions
-    if lmList:
-        print(lmList)
 
     # Show the processed image
     cv2.imshow('finger counter', frame)

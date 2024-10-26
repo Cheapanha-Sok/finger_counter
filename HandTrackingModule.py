@@ -18,8 +18,6 @@ class HandDetector:
         self.maxHands = maxHands
         self.detectionCon = detectionCon
         self.trackCon = trackCon
-
-        # Initialize Mediapipe Hands and drawing utility
         self.mpHands = mp.solutions.hands
         self.hands = self.mpHands.Hands(static_image_mode=self.mode,
                                         max_num_hands=self.maxHands,
@@ -47,30 +45,3 @@ class HandDetector:
                     self.mpDraw.draw_landmarks(img, handLms, self.mpHands.HAND_CONNECTIONS)
 
         return img
-
-    def findPosition(self, img, handNo=0, draw=True):
-        """
-        Find the position of landmarks for the specified hand.
-
-        Parameters:
-        - img: The input image (BGR).
-        - handNo (int): The hand number to detect (0 for the first hand).
-        - draw (bool): Whether to draw circles on landmark points.
-
-        Returns:
-        - lmList: A list of landmarks (id, x, y) for the specified hand.
-        """
-        lmList = []
-        if self.results.multi_hand_landmarks:
-            try:
-                myHand = self.results.multi_hand_landmarks[handNo]
-                h, w, c = img.shape
-                for id, lm in enumerate(myHand.landmark):
-                    cx, cy = int(lm.x * w), int(lm.y * h)
-                    lmList.append([id, cx, cy])
-                    if draw:
-                        cv2.circle(img, (cx, cy), 10, (255, 0, 255), cv2.FILLED)
-            except IndexError:
-                print(f"Hand number {handNo} not found.")
-        
-        return lmList
