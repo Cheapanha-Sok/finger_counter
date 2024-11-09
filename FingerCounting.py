@@ -40,13 +40,14 @@ while True:
             if lmList[tipIds[id]][2] < lmList[tipIds[id]-2][2]:
                 fingers.append(1)
             else:
-                fingers.append(0)
+                fingers.append(0)q
                 
         totalFingers = fingers.count(1)
         
         # Draw the rectangle on the top left corner
-        cv2.rectangle(img, (20, 20), (170, 220), (0, 255, 0), cv2.FILLED)
-        cv2.putText(img, str(totalFingers), (45, 170), cv2.FONT_HERSHEY_PLAIN, 10, (255, 0, 0), 25)
+        # Display the result on the video frame
+        cv2.rectangle(img, (10, 10), (100, 70), (0, 0, 255), cv2.FILLED)
+        cv2.putText(img, str(totalFingers), (34, 60), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 4)
 
     cv2.imshow('finger counter', img)
     
